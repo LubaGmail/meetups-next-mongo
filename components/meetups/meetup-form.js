@@ -1,31 +1,66 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 import styles from './meetup-form.module.css'
 
-const MeetupForm = ({onAddMeetup}) => {
-  const titleRef = useRef()
-  const imageRef = useRef()
-  const addressRef = useRef()
-  const descRef = useRef()
+const POST_API = '/api/new-meetup'
 
-  const handleSubmit = (ev) => {
+const MeetupForm = () => {
+  let titleRef = useRef()
+  let imageRef = useRef()
+  let addressRef = useRef()
+  let descRef = useRef()
+  const [featured, setFeatured] = useState(false)
+  const [result, setResult] = useState({})
+
+  const clearForm = () => {
+    titleRef.current.value = ''
+    imageRef.current.value = ''
+    addressRef.current.value = ''
+    descRef.current.value = ''
+    setFeatured(false)
+  }
+
+  const handleCheckbox = (ev) => {
+    console.log('handleCheckbox', ev.target.value)
+    setFeatured(!featured)
+  }
+
+  const handleSubmit = async(ev) => {
     ev.preventDefault()
     const obj = {
       title: titleRef.current.value.trim(),
       image: imageRef.current.value.trim(),
       address: addressRef.current.value.trim(),
-      desc: descRef.current.value
+      desc: descRef.current.value,
+      featured: featured
     }
-    onAddMeetup(obj)
+    const response = await fetch(POST_API, {
+      method: 'POST',
+      body: JSON.stringify(obj),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    const data = await response.json()
+    setResult({
+      statusCode: response.status,
+      appStatus: data.appStatus,
+      detail: data.detail
+    })
+
+    response.status === 200 ? clearForm() : null
+    
   }
 
   return (
     <>
+      Result: {JSON.stringify(result)}
       <div> 
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit} onReset={clearForm}>
           <div className={styles.control}>
             <label htmlFor='title'>Title</label>
             <input type='text' id='title' name='title'
@@ -35,7 +70,7 @@ const MeetupForm = ({onAddMeetup}) => {
           </div>
           <div className={styles.control}>
             <label htmlFor='image'>Image URL</label>
-            <input type='url' id='image' name='image'
+            <input type='text' id='image' name='image'
               required
               ref={imageRef}
             />
@@ -53,6 +88,12 @@ const MeetupForm = ({onAddMeetup}) => {
               required minLength={2}
               ref={descRef}
             ></textarea>
+          </div>
+          <div className={styles.control}>
+            <label htmlFor='featured'>Featured</label>
+            <input type='checkbox' id='featured' name='featured'  
+              onClick={handleCheckbox}  checked={featured}
+            />
           </div>
 
           <div className={styles.actions}>

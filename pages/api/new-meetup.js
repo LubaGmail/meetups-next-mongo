@@ -12,7 +12,6 @@ const validate = (title, image, address, desc) => {
     return true
 }
 
-
 const handler = async (req, res) => {
     if (req.method !== 'POST') {
         res.status(500).json({ appStatus: 'error', detail: 'Invalid http method' })
