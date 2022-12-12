@@ -24,7 +24,6 @@ const MeetupForm = () => {
   }
 
   const handleCheckbox = (ev) => {
-    console.log('handleCheckbox', ev.target.value)
     setFeatured(!featured)
   }
 
@@ -53,7 +52,6 @@ const MeetupForm = () => {
     })
 
     response.status === 200 ? clearForm() : null
-    
   }
 
   return (
