@@ -36,9 +36,11 @@ const handler = async (req, res) => {
         insertResult = await insertRecord(client, req.body)
     } catch (error) {
         res.status(500).json({ appStatus: 'error', detail: error.toString() })
+        if (client) client.close()
         throw new Error(req.method + 'error.toString()')
     }
 
+    if (client) client.close()
     res.status(200).json({ appStatus: 'success', detail: insertResult })
 }
 

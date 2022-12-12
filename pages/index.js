@@ -3,6 +3,7 @@ import Image from 'next/image'
 
 import DUMMY_MEETUPS from '../data/dummy-meetups'
 import MeetupList from '../components/meetups/meetup-list'
+import {connectMongo, allRecords} from '../lib/db'
 
 const HomePage = (props) => {
 
@@ -16,10 +17,31 @@ const HomePage = (props) => {
 }
 
 export async function getStaticProps() {
+  let client
+  try {
+      client = await connectMongo()
+  } catch (error) {
+      throw new Error(error.toString())
+  }
+
+  let meetups
+  try {
+      meetups = await allRecords(client)
+  } catch (error) {
+      if (client) client.close()
+      throw new Error(req.method + 'error.toString()')
+  }
+  if (client) client.close()
 
   return {
       props: {
-          meetups: DUMMY_MEETUPS
+        meetups: meetups.map((el) => ({
+          title: el.title,
+          image: el.image,
+          address: el.address,
+          desc: el.desc,
+          id: el._id.toString()
+        }) )
       },
       revalidate: 2
   }
