@@ -26,7 +26,6 @@ const DUMMY_MEETUPS = [
 ]
 
 export function getOne(id) {
-    console.log('dummy', id)
     const meetup = DUMMY_MEETUPS.find(el => el.id === id)
    
     return meetup

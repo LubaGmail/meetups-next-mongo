@@ -1,41 +1,46 @@
-import { useRouter } from 'next/router'
-
 import MeetupDetail from '../../components/meetups/meetup-detail'
-import { getOne, getFeatured } from '../../data/dummy-meetups'
 
-const MeetupPage = () => {
-    const router = useRouter()
-    const meetupid = router?.query?.meetupid
+const GET_API = 'http://localhost:3000/api/'
 
+const MeetupPage = (props) => {
   return (
     <>
       <div className='center'> 
-        <MeetupDetail meetupid={meetupid} />
+        <MeetupDetail meetup={props.meetup} />
       </div>
     </>
-  )
+  ) 
 }
 
-export async function getStaticPaths(context) {
+export async function getStaticPaths() {
+  const response = await fetch(GET_API + 'featured')
+  const data = await response.json()
+
+  const idStr = data.detail[0]._id.toString()
 
   return {
     fallback: true,
     paths: [
-      {params: {meetupid: '6397323351a18dc23f5db511'}}
+      {params: {meetupid: idStr}}
     ]
   }
 }
 
 export async function getStaticProps(context) {
+  const paramsMeetupid = context.params.meetupid
+  const response = await fetch(GET_API + paramsMeetupid)
+  const data = await response.json()
+  const record = data.detail
+
   return {
     props: {
       meetup: {
-        id: '6397323351a18dc23f5db511',
-        title: 'React Meetup',
+        id: record._id.toString(),
+        title: record.title,
         image: '/images/bath.jpg',
-        address: 'Bath street 1, Bath UK',
-        desc: 'Second meetup',
-        isFeatured: true
+        address: record.address,
+        desc: record.desc,
+        featured: record.featured
       }
     }
   }
