@@ -1,7 +1,3 @@
-import Head from 'next/head'
-import Image from 'next/image'
-
-import DUMMY_MEETUPS from '../data/dummy-meetups'
 import MeetupList from '../components/meetups/meetup-list'
 import {connectMongo, allRecords} from '../lib/db'
 
@@ -40,7 +36,7 @@ export async function getStaticProps() {
           image: el.image,
           address: el.address,
           desc: el.desc,
-          id: el._id.toString()
+          idStr: el._id.toString()
         }) )
       },
       revalidate: 2

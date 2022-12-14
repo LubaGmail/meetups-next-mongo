@@ -1,5 +1,3 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import MeetupDetail from '../../components/meetups/meetup-detail'
@@ -18,27 +16,27 @@ const MeetupPage = () => {
   )
 }
 
-export async function getStaticPaths() {
-  const featured = getFeatured()
+export async function getStaticPaths(context) {
 
   return {
     fallback: true,
-    paths:
-        [
-            { params: { meetupid: featured[0].id } },
-        ],
-
-   }
+    paths: [
+      {params: {meetupid: '6397323351a18dc23f5db511'}}
+    ]
+  }
 }
 
 export async function getStaticProps(context) {
-  const meetupid = context.params.meetupid
-  const meetup = getOne(meetupid)
-  // console.log('getStaticProps', context.params)
-
   return {
     props: {
-      meetup: meetup
+      meetup: {
+        id: '6397323351a18dc23f5db511',
+        title: 'React Meetup',
+        image: '/images/bath.jpg',
+        address: 'Bath street 1, Bath UK',
+        desc: 'Second meetup',
+        isFeatured: true
+      }
     }
   }
 }

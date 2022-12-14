@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
@@ -6,14 +5,15 @@ import styles from './meetup-item.module.css'
 
 const MeetupItem = ({ item }) => {
   const router = useRouter()
-  const id = item.id;
+  const meetupid = item.idStr;
 
   const toMeetupDetail = () => {
-    router.push('/' + id)
+    router.push('/' + meetupid)
   }
 
   return (
-    <section  className={styles.item}>
+    <section className={styles.item}>
+      meetupid: {meetupid}
       <div> 
         <p className={styles.title}>
           {item.title}
