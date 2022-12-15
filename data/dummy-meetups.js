@@ -16,7 +16,7 @@ const DUMMY_MEETUPS = [
         isFeatured: true
     },
     {
-        id: '6397325e51a18dc23f5db512',
+        id: '639b9ec51114bea2f3670c7a',
         title: 'Modern JavaScript',
         image: '/images/orleans.jpg',
         address: 'Leon street 1, Leon France',

@@ -1,3 +1,6 @@
+// issues with import from /pages/[dynamic]/index;  ok importing from /pages/api/[dynamic]
+// import {connectMongo} from '../../lib/db'
+
 import MeetupDetail from '../../components/meetups/meetup-detail'
 
 const GET_API = 'http://localhost:3000/api/'

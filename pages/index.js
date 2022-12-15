@@ -1,4 +1,5 @@
 import MeetupList from '../components/meetups/meetup-list'
+// const { MongoClient, ObjectId } = require('mongodb');
 import {connectMongo, allRecords} from '../lib/db'
 
 const HomePage = (props) => {
