@@ -8,7 +8,7 @@ const MeetupItem = ({ item }) => {
   const meetupid = item.idStr;
 
   const toMeetupDetail = () => {
-    router.push('/' + meetupid)
+    // router.push('/' + meetupid)
   }
 
   return (
