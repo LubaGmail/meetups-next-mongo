@@ -1,9 +1,9 @@
 // issues with import from /pages/[dynamic]/index;  ok importing from /pages/api/[dynamic]
 // import {connectMongo} from '../../lib/db'
 
-import MeetupDetail from '../../components/meetups/meetup-detail'
+import Head from 'next/head'
 
-const GET_API = 'http://localhost:3000/api/'
+import MeetupDetail from '../../components/meetups/meetup-detail'
 
 const MeetupPage = (props) => {
   return (
@@ -11,11 +11,19 @@ const MeetupPage = (props) => {
       <div className='center'> 
         <MeetupDetail meetup={props.meetup} />
       </div>
+      <Head>
+        <title>{props.meetup.title}</title>
+        <meta 
+          name={props.meetup.title}
+          content={props.meetup.desc}
+        />
+      </Head>
     </>
-  ) 
+  )   
 }
 
 export async function getStaticPaths() {
+  const GET_API = process.env.GET_API
   const response = await fetch(GET_API + 'featured')
   const data = await response.json()
 
@@ -30,6 +38,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
+  const GET_API = process.env.GET_API
   const paramsMeetupid = context.params.meetupid
   const response = await fetch(GET_API + paramsMeetupid)
   const data = await response.json()

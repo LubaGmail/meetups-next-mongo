@@ -1,6 +1,3 @@
-import Head from 'next/head'
-import Image from 'next/image'
-
 import { useRef, useState } from 'react'
 
 import styles from './meetup-form.module.css'

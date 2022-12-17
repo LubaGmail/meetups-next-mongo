@@ -14,8 +14,11 @@ getStaticProps - prepare props for the app which is done as part of the build pr
 Mongo auth
     Update next.config.js with Mongo info
 
+Deployment to Vercel
+    https://vercel.com/new?onboarding=true
 
-
+Parts to review
+    Auth
 
 
 

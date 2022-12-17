@@ -1,7 +1,5 @@
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import {getOne} from '../../data/dummy-meetups'
 import styles from './meetup-detail.module.css'
 
 const MeetupDetail = ({ meetup }) => {

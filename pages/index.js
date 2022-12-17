@@ -3,7 +3,6 @@ import MeetupList from '../components/meetups/meetup-list'
 import {connectMongo, allRecords} from '../lib/db'
 
 const HomePage = (props) => {
-
   return (
     <>
       <div> 
@@ -16,9 +15,9 @@ const HomePage = (props) => {
 export async function getStaticProps() {
   let client
   try {
-      client = await connectMongo()
+    client = await connectMongo()
   } catch (error) {
-      throw new Error(error.toString())
+    throw new Error(error.toString())
   }
 
   let meetups
