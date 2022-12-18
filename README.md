@@ -16,7 +16,9 @@ Mongo auth
 Deployment to Vercel
     https://vercel.com/new?onboarding=true
 
+    meetups-next-mongo-i8jntd711-lubagmail.vercel.app
 
+    
 
 
 
